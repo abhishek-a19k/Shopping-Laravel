@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     //
     public function index(){
         $customers=Customer::all();
@@ -15,8 +19,6 @@ class CustomerController extends Controller
         Log::info("successfully retrived customers");
         return view('customer.index',compact('customers'));
     }
-
-
 
     public function show($id){
         return view('customer.show',['customer' => Customer::findOrFail($id)]);
